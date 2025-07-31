@@ -3,7 +3,21 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
+from ucimlrepo import fetch_ucirepo
+import pandas as pd
 
+def load_dataset():
+
+    # 2. Load dataset
+    dataset = fetch_ucirepo(id=374)
+
+    # Extract features and target
+    X = dataset.data.features
+    y = dataset.data.targets  # Appliances (regression)
+    df = pd.concat([X, y], axis=1)
+    df.set_index('date', inplace=True)
+
+    return df
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
