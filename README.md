@@ -1,57 +1,157 @@
-AS-TestDataScience-2
-==============================
+# AS-TestDataScience-2
 
-Multivariate time series forecasting of home energy consumption using the Appliances Energy Prediction dataset (UCI). The goal is to predict future energy use without access to future values of regressors. Includes preprocessing, stationarity check, model training, and evaluation. Fully reproducible project structure.
+Multivariate time series forecasting of home energy consumption using the **Appliances Energy Prediction** dataset (UCI).  
+This project aims to predict future appliance energy use without access to future values of the regressors.  
+It includes preprocessing, stationarity checks, model training, evaluation, and reproducibility features.
 
-Project Organization
-------------
+---
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+## 📂 Project Structure
 
+This repository follows the [cookiecutter data science](https://drivendata.github.io/cookiecutter-data-science/) structure:
 
---------
+```
+├── LICENSE             <- MIT License.
+├── Makefile            <- Reproducible commands: make data, make train, etc.
+├── README.md           <- Project overview and instructions.
+├── data/               <- Data folders: raw, interim, processed, external.
+├── docs/               <- Sphinx documentation source.
+├── models/             <- Trained models (.pth) and their training curves.
+├── notebooks/          <- Jupyter notebooks for analysis and training.
+├── references/         <- Supporting material, manuals, citations.
+├── reports/            <- Final reports and figures.
+├── requirements.txt    <- Python dependencies.
+├── setup.py            <- Installation script (`pip install -e .`)
+├── src/                <- All source code (data prep, features, models, viz).
+└── tox.ini             <- Linting rules.
+```
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+---
+
+## 📊 Dataset
+
+**Appliances Energy Prediction** ([UCI Repository](https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction)):
+
+- **Time range:** ~4.5 months, sampled every 10 minutes (19,735 entries)
+- **Features:** 28 sensor variables (temperature, humidity, weather, random)
+- **Target:** Appliance energy use (`Appliances`, in Wh)
+- **No missing values**, rich periodicity (daily and sub-daily)
+
+---
+
+## 🧹 Pipeline Overview
+
+1. **Data Loading & Cleaning**
+   - Standardize datetime format
+   - Set time index
+   - Normalize features using `StandardScaler` (fit on training set only)
+
+2. **EDA & Stationarity**
+   - Rolling statistics, ACF, FFT, spectrogram
+   - ADF tests (global + rolling)
+   - Seasonal decomposition
+
+3. **Supervised Learning Setup**
+   - Sliding window with:
+     - Input length = 5 days
+     - Horizon = 100 steps
+     - Stride = 12 hours
+   - Custom PyTorch dataset and dataloaders
+
+4. **Model Training**
+   - Models: LSTM, Transformer, TCN
+   - Loss: MAE
+   - Optimizer: Adam
+   - Trained for 200 epochs
+
+5. **Evaluation**
+   - Metrics: MAE, RMSE
+   - Visual comparison of predictions
+   - Model checkpoints and loss curves saved in `models/`
+
+---
+
+## 📈 Model Comparison
+
+| Model        | MAE   | RMSE  |
+|--------------|-------|-------|
+| **LSTM**     | 0.570 | 1.105 |
+| **Transformer** | **0.532** | **1.062** |
+| **TCN**      | 0.607 | 1.084 |
+
+The Transformer achieves the best performance overall, followed closely by LSTM and TCN.
+
+---
+
+## 💡 Key Takeaways
+
+- **Transformer-based models** are highly effective for this type of multivariate sequence regression.
+- **Daily seasonality** is dominant and must be considered during modeling and validation.
+- Despite the global ADF test suggesting stationarity, **rolling ADF and visual checks reveal clear non-stationarity**.
+- This project demonstrates a **reproducible deep learning forecasting pipeline** suitable for real-world deployment and extensibility.
+
+---
+
+## 🔧 Setup Instructions
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/<your-username>/as-testdatascience-2.git
+   cd as-testdatascience-2
+   ```
+
+2. **Create a virtual environment** (optional but recommended):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run training**:
+   ```bash
+   python notebooks/energy_prediction.ipynb  # or run via Jupyter
+   ```
+
+5. **Build documentation** (optional):
+   ```bash
+   cd docs
+   make html
+   ```
+
+---
+
+## 📚 Documentation
+
+To view documentation (optional):
+
+```bash
+cd docs
+make html
+open _build/html/index.html
+```
+
+---
+
+## 🧪 Testing Your Environment
+
+Run:
+
+```bash
+python test_environment.py
+```
+
+to confirm your Python version is compatible.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**. See `LICENSE` for full details.
+
+---
+
+<p><small>Project scaffolded with <a href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science</a>.</small></p>
