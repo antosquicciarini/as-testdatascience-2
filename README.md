@@ -100,23 +100,27 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
    cd as-testdatascience-2
    ```
 
-2. **Create a virtual environment** (optional but recommended):
+2. **Create and activate environment** (automated via `make`):
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate
+   make create_environment
    ```
 
-3. **Install requirements**:
+3. **Install dependencies**:
    ```bash
-   pip install -r requirements.txt
+   make requirements
    ```
 
-4. **Run training**:
+4. **Validate environment setup**:
+   ```bash
+   make test_environment
+   ```
+
+5. **Run training**:
    ```bash
    python notebooks/energy_prediction.ipynb  # or run via Jupyter
    ```
 
-5. **Build documentation** (optional):
+6. **Build documentation** (optional):
    ```bash
    cd docs
    make html
@@ -145,6 +149,24 @@ python test_environment.py
 ```
 
 to confirm your Python version is compatible.
+
+---
+
+## 🧪 Testing & Code Quality
+
+To ensure the code follows Python PEP8 style guidelines, you can run:
+
+```bash
+make lint
+```
+---
+
+## ⚙️ DevOps Readiness
+
+- Project structured with automation via Makefile
+- Environment reproducibility via requirements.txt and setup.py
+- Linting, testing, and documentation support (tox, flake8, Sphinx)
+- Models saved and ready for deployment in production systems
 
 ---
 

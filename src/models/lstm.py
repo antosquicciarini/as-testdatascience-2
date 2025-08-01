@@ -1,5 +1,6 @@
 import torch.nn as nn
 
+
 class LSTMForecaster(nn.Module):
     def __init__(self, n_feats, hidden_size=64, num_layers=2, horizon=100):
         super().__init__()

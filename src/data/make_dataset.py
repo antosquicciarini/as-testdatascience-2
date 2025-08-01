@@ -6,6 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 from ucimlrepo import fetch_ucirepo
 import pandas as pd
 
+
 def load_dataset():
 
     # 2. Load dataset
@@ -19,12 +20,20 @@ def load_dataset():
 
     # Ensure datetime index
     # Fix malformed datetime strings: insert space before hour part
-    df.index = df.index.str.replace(r"(\d{4}-\d{2}-\d{2})(\d{2}:\d{2}:\d{2})", r"\1 \2", regex=True)
+    df.index = df.index.str.replace(
+        r"(\d{4}-\d{2}-\d{2})(\d{2}:\d{2}:\d{2})", r"\1 \2", regex=True
+        )
 
     # Convert to datetime
     df.index = pd.to_datetime(df.index)
 
+    # Add time-based features
+    df['hour'] = df.index.hour
+    df['dayofweek'] = df.index.dayofweek
+    df['is_weekend'] = df.index.dayofweek >= 5
+
     return df
+
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))

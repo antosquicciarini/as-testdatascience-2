@@ -87,3 +87,9 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# Model checkpoints and images
+*.png
+*.jpg
+*.jpeg
+*.pth
