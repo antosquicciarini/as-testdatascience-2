@@ -101,7 +101,10 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
    ```bash
    make create_environment
    ```
-
+   If conda is available, then 
+   ```bash
+   conda activate as-testdatascience-2
+   ```
 3. **Install dependencies**:
    ```bash
    make requirements
@@ -113,9 +116,7 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
    ```
 
 5. **Run training**:
-   ```bash
-   python notebooks/energy_prediction.ipynb  # or run via Jupyter
-   ```
+   run notebooks/energy_prediction.ipynb via Jupyter
 
 6. **Build documentation** (optional):
    ```bash

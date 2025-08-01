@@ -16,4 +16,4 @@ statsmodels
 torch
 joblib
 jupyter
-srm
+-e .
