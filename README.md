@@ -118,24 +118,6 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
 5. **Run training**:
    run notebooks/energy_prediction.ipynb via Jupyter
 
-6. **Build documentation** (optional):
-   ```bash
-   cd docs
-   make html
-   ```
-
----
-
-## 📚 Documentation
-
-To view documentation (optional):
-
-```bash
-cd docs
-make html
-open _build/html/index.html
-```
-
 ---
 
 ## 🧪 Testing Your Environment
