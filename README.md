@@ -14,11 +14,8 @@ This repository follows the [cookiecutter data science](https://drivendata.githu
 ├── LICENSE             <- MIT License.
 ├── Makefile            <- Reproducible commands: make data, make train, etc.
 ├── README.md           <- Project overview and instructions.
-├── data/               <- Data folders: raw, interim, processed, external.
-├── docs/               <- Sphinx documentation source.
 ├── models/             <- Trained models (.pth) and their training curves.
 ├── notebooks/          <- Jupyter notebooks for analysis and training.
-├── references/         <- Supporting material, manuals, citations.
 ├── reports/            <- Final reports and figures.
 ├── requirements.txt    <- Python dependencies.
 ├── setup.py            <- Installation script (`pip install -e .`)
@@ -96,7 +93,7 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/<your-username>/as-testdatascience-2.git
+   git clone https://github.com/antosquicciarini/as-testdatascience-2.git
    cd as-testdatascience-2
    ```
 
