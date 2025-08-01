@@ -17,6 +17,13 @@ def load_dataset():
     df = pd.concat([X, y], axis=1)
     df.set_index('date', inplace=True)
 
+    # Ensure datetime index
+    # Fix malformed datetime strings: insert space before hour part
+    df.index = df.index.str.replace(r"(\d{4}-\d{2}-\d{2})(\d{2}:\d{2}:\d{2})", r"\1 \2", regex=True)
+
+    # Convert to datetime
+    df.index = pd.to_datetime(df.index)
+
     return df
 
 @click.command()
