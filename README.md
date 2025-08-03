@@ -30,8 +30,8 @@ This repository follows the [cookiecutter data science](https://drivendata.githu
 This MkDocs site provides structured technical documentation.  
 Additionally, the following resources are available for direct exploration:
 
-- ✅ **Executed Jupyter notebook** (interactive report): [`reports/energy_prediction.html`](../reports/energy_prediction.html)  
-- 🎞 **Presentation slides** (PDF format): [`reports/as_testdatascience_2.pdf`](../reports/as_testdatascience_2.pdf)
+- ✅ **Executed Jupyter notebook** (interactive report): [`reports/energy_prediction.html`](as-testdatascience-2/reports/energy_prediction.html)  
+- 🎞 **Presentation slides** (PDF format): [`reports/as_testdatascience_2.pdf`](as-testdatascience-2/reports/as_testdatascience_2.pdf)
 
 These files allow for quick visualization of results and core methods without running code manually.
 
