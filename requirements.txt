@@ -16,4 +16,6 @@ statsmodels
 torch
 joblib
 jupyter
+mkdocs
+mkdocs-material
 -e .
