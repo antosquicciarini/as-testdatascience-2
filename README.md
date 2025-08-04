@@ -130,6 +130,11 @@ The Transformer achieves the best performance overall, followed closely by LSTM 
 5. **Run training**:
    run notebooks/energy_prediction.ipynb via Jupyter
 
+6. **Serve MkDocs documentation locally**:
+   ```bash
+   mkdocs serve
+   ```
+   Then open `http://127.0.0.1:8000` in your browser to explore the documentation.
 ---
 
 ## 🧪 Testing Your Environment
